@@ -1,9 +1,9 @@
 {
     "network": "mainnet",
-    "registryAddress": "0x3e532e6222afe9bcf02dcb87216802c75d5113ae",
-    "registryStartBlock": 9937650,
-    "addressWhitelistAddress": "0xdbf90434df0b98219f87d112f37d74b1d90758c7",
-    "addressWhitelistStartBlock": 10484890,
-    "storeAddress": "0x54f44ea3d2e7aa0ac089c4d8f7c93c27844057bf",
-    "storeStartBlock": 9937562 
+    "registryAddress": "0x4473C58f70769f9a1184AcF129c2e5B94699170C",
+    "registryStartBlock": 20000,
+    "addressWhitelistAddress": "0x6Fd2168561B6eA1aCe514DBb07e61b3f21d4682c",
+    "addressWhitelistStartBlock": 20000,
+    "storeAddress": "0xb54FfEABc349ab73873EA2D80147fd952A44419C",
+    "storeStartBlock": 20000
 }

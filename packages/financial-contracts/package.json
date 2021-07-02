@@ -10,7 +10,9 @@
     "deploy:kovan": "env STAGING=true scripts/deploy.sh kovan",
     "deploy:mainnet": "env STAGING=true scripts/deploy.sh mainnet",
     "deploy-prod:kovan": "scripts/deploy.sh kovan",
-    "deploy-prod:mainnet": "scripts/deploy.sh mainnet"
+    "deploy-prod:mainnet": "scripts/deploy.sh mainnet",
+    "deploy:dev": "scripts/deploy-dev.sh mainnet",
+    "create:dev": "graph create --node http://172.16.1.214:8020 umaprotocol/mainnet-contracts"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.20.0",

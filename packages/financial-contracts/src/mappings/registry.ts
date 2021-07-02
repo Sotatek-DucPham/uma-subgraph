@@ -98,9 +98,9 @@ export function handleCreatedExpiringMultiParty(
     let sponsorDisputeRewardPercentage = empContract.try_sponsorDisputeRewardPercentage();
     let disputerDisputeRewardPercentage = empContract.try_disputerDisputeRewardPercentage();
     // Note: These three methods are named differently in old EMPs:
-    let disputeBondPct = empContract.try_disputeBondPct();
-    let sponsorDisputeRewardPct = empContract.try_sponsorDisputeRewardPct();
-    let disputerDisputeRewardPct = empContract.try_disputerDisputeRewardPct();
+    // let disputeBondPct = empContract.try_disputeBondPct();
+    // let sponsorDisputeRewardPct = empContract.try_sponsorDisputeRewardPct();
+    // let disputerDisputeRewardPct = empContract.try_disputerDisputeRewardPct();
     let withdrawalLiveness = empContract.try_withdrawalLiveness();
     let liquidationLiveness = empContract.try_liquidationLiveness();
 
@@ -125,15 +125,35 @@ export function handleCreatedExpiringMultiParty(
     contract.minSponsorTokens = minSponsorTokens.reverted
       ? null
       : toDecimal(minSponsorTokens.value);
-    contract.disputeBondPercentage = disputeBondPercentage.reverted
-      ? (disputeBondPct.reverted ? null : toDecimal(disputeBondPct.value))
-      : toDecimal(disputeBondPercentage.value);
-    contract.sponsorDisputeRewardPercentage = sponsorDisputeRewardPercentage.reverted
-      ? (sponsorDisputeRewardPct.reverted ? null : toDecimal(sponsorDisputeRewardPct.value))
-      : toDecimal(sponsorDisputeRewardPercentage.value);
-    contract.disputerDisputeRewardPercentage = disputerDisputeRewardPercentage.reverted
-      ? (disputerDisputeRewardPct.reverted ? null : toDecimal(disputerDisputeRewardPct.value))
-      : toDecimal(disputerDisputeRewardPercentage.value);
+
+    if(disputeBondPercentage.reverted) {
+      let disputeBondPct = empContract.try_disputeBondPct();
+      contract.disputeBondPercentage = (disputeBondPct.reverted ? null : toDecimal(disputeBondPct.value));
+    } else {
+      contract.disputeBondPercentage = toDecimal(disputeBondPercentage.value);
+    }
+    if(sponsorDisputeRewardPercentage.reverted) {
+      let sponsorDisputeRewardPct = empContract.try_sponsorDisputeRewardPct();
+      contract.sponsorDisputeRewardPercentage = (sponsorDisputeRewardPct.reverted ? null : toDecimal(sponsorDisputeRewardPct.value));
+    } else {
+      contract.sponsorDisputeRewardPercentage = toDecimal(sponsorDisputeRewardPercentage.value);
+    }
+    if(disputerDisputeRewardPercentage.reverted) {
+      let disputerDisputeRewardPct = empContract.try_disputerDisputeRewardPct();
+      contract.disputerDisputeRewardPercentage = (disputerDisputeRewardPct.reverted ? null : toDecimal(disputerDisputeRewardPct.value));
+    } else {
+      contract.disputerDisputeRewardPercentage = toDecimal(disputerDisputeRewardPercentage.value);
+    }
+
+    // contract.disputeBondPercentage = disputeBondPercentage.reverted
+    //   ? (disputeBondPct.reverted ? null : toDecimal(disputeBondPct.value))
+    //   : toDecimal(disputeBondPercentage.value);
+    // contract.sponsorDisputeRewardPercentage = sponsorDisputeRewardPercentage.reverted
+    //   ? (sponsorDisputeRewardPct.reverted ? null : toDecimal(sponsorDisputeRewardPct.value))
+    //   : toDecimal(sponsorDisputeRewardPercentage.value);
+    // contract.disputerDisputeRewardPercentage = disputerDisputeRewardPercentage.reverted
+    //   ? (disputerDisputeRewardPct.reverted ? null : toDecimal(disputerDisputeRewardPct.value))
+    //   : toDecimal(disputerDisputeRewardPercentage.value);
     contract.withdrawalLiveness = withdrawalLiveness.reverted
       ? null
       : withdrawalLiveness.value;
